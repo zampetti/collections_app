@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <main class="container signup-section">
+        
+        <h2>Upload the template to match</h2>
+        <h3>The template should be a <span style="color:red;">CROPPED IMAGE</span> selected from the target file</h3>
+        <div class="section-content">
+          <form method="POST" action="/home" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            
+            <div class="form-group">
+              {% if form.upload.errors %}
+                {% for error in form.upload.errors %}
+                  <p class="error-message">{{ error }}</p>
+                {% endfor %}
+              {% endif %}
+
+              {{ form.upload(placeholder="Upload template") }}
+            </div>
+              
+            <div class="form-group">
+              {% if form.collection_path.errors %}
+                {% for error in form.collection_path.errors %}
+                  <p class="error-message">{{ error }}</p>
+                {% endfor %}
+              {% endif %}
+
+              {{ form.collection_path(placeholder="Enter path to collection.") }}
+            </div>
+              
+            <div class="form-group">
+              {% if form.target_file_dir.errors %}
+                {% for error in form.target_file_dir.errors %}
+                  <p class="error-message">{{ error }}</p>
+                {% endfor %}
+              {% endif %}
+
+              {{ form.target_file_dir(placeholder="Enter path for desired target file directory.") }}
+            </div>
+            
+            <span id="submission">{{ form.submit(class="btn-primary") }}</span>
+          </form>
+        </div>
+        
+        <div>
+            <img id="template" src="">
+        </div>
+<!--
+        <div>
+            <table>
+                <tr>
+                    <th>File</th>
+                    <th>Match Value</th>
+                </tr>
+                {% for image in image_paths %}
+                    "<tr><td>image</td><td>max_val</td></tr>"
+                {% endfor %}
+            </table>
+        </div>
+-->
+      
+      <div>
+        <span id="place"></span>
+      </div>
+      
+  </main>
+
+  <script>
+      var temp_path = '{{ path }}';
+      $('#template').attr('src', temp_path);
+      
+//      $('#submission').click(function() {
+//          $.ajax({
+//              url: '/processing',
+//              success: function(result) {
+//                  $("#place").html(result);
+//              }
+//          });
+//      });
+//      
+//      $('#submission').bind('click', function() {
+//          $.getJSON('/processing', {
+//              image_files: '',
+//              fix_c: '',
+//          }, function(data) {
+//              $('#place').text(data.result);
+//          });
+//      });
+      
+  </script>
+
+{% endblock %}

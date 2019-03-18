@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<main class="container signup-section">
+    <div>
+        <h2>Processing...</h2>
+        
+        <div id="progress" style="padding:25px">
+            <h4 id="processor"></h4>
+        </div>
+        
+        <hr style="height:2px" />
+        <div>
+            <img id="template" src="{{ path }}">
+        </div>
+        
+        <div>
+            <h3>Path to collection:</h3>
+            <p>{{ fix_c }}</p>
+        </div>
+        <div>
+            <h3>Path to target file directory:</h3>
+            <p>{{ fix_tfd }}</p>
+        </div>
+        
+    </div>
+    
+    {% for item in rows %}
+        <script type="text/javascript">
+            
+            var processor = document.getElementById('processor');
+            
+            function completion_monitor() {
+                processor.innerHTML = '';
+            }
+            
+            setTimeout(completion_monitor(), 1000);
+            
+            if (processor.innerHTML == '') {
+                processor.innerHTML = '{{ item }}';
+            }
+            
+        </script>
+    {% endfor %}
+    
+{% endblock %}
+
